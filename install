@@ -1,0 +1,12 @@
+export KUBECONFIG=/etc/kubernetes/admin.conf
+
+kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended/kubernetes-dashboard.yaml
+
+kubectl create -f k8s-adminuser.yaml
+
+kubectl create -f k8sadmin-clusterrole.yaml
+
+kubectl -n kube-system edit service kubernetes-dashboard
+
+kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep k8sadmin | awk '{print $1}')
+
